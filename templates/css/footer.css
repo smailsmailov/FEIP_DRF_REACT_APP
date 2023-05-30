@@ -1,0 +1,19 @@
+.footer_1{
+    width: 100vw;
+    height: 380px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    font-size: 12px;
+    background-color: #515562;
+    color: white;
+    align-items: center;
+}
+.footer_prop_n{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-decoration: underline;
+    color: #9CA0AB;
+    height: 200px;
+}
