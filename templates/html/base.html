@@ -4,11 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/footer.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/footer.css">
     <title>Document</title>
 </head>
 <body>
-    <div class="footer_1">
+    <div class="header">
+        <div class="header_prop_1">
+            <div style="display:flex;justify-content: space-between;text-decoration: underline;width: 250px;align-items: center;">
+                <span>Контакты</span>
+                <span>О нас</span>
+                <span>Доставка</span>
+            </div>
+        </div>
+        <div class="header_prop_2">
+            <div style="display:flex;justify-content: space-between;text-decoration: underline;width: 150px;align-items: center;">
+                <span>Logo</span>
+                <span>Написать нам</span>
+            </div>
+        </div>
+    </div>
+    <div class="header_1">
+        <div class="header_prop_3">
+            <span style="margin-left: 110px;">LOGO</span>
+            <div class="header_prop_3_1">
+                <div class="header_prop_3_2">
+                    <img src="../static/Component 81.svg" alt="">
+                    <span>Каталог</span>
+                </div>
+                <div class="header_prop_3_3">
+                    <img src="../static/Vector (1).svg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="header_prop_4">
+            <img src="../static/Vector.svg" alt=""><span>   Избранное</span>
+            <img src="../static/user 3.svg" alt=""><span>  Вход/Регистрация</span>
+            <img src="../static/basket 3.svg" alt=""><span>  Корзина 5000/ 5 шт</span>
+        </div>
+    </div>
+    {% load static %}
+    {% block content %}
+    {% endblock %}
+        <div class="footer_1">
         <div class="footer_prop_n" >
             <span style="font-size: 35px;color: white;">Logo</span>
             <span>Связаться с нами</span>
@@ -27,7 +65,7 @@
         </div>
         <div class="footer_prop_n"style="height: 200px;">
             <div style="display: flex;flex-direction: column;justify-content: space-evenly;height: 50% ;"><span>Контакты</span><span>+79123456789</span><span>mail.mail@ru</span></div>
-            
+
         </div>
     </div>
 </body>
