@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="header_prop_4">
-            <img src="../static/Vector.svg" alt=""><span>   Избранное</span>
+            <img src="../static/Vector.svg" alt=""><span> <a href="{% url 'favorite' %}">Избранное</a>  </span>
             {% if user.is_authenticated %}
                 <img src="../static/user 3.svg" alt=""><span>{{ user.get_full_name }}</span>
             {% else %}

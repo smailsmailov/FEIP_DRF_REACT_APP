@@ -60,3 +60,10 @@ def SignUp(request):
 def LogOut(request):
     logout(request)
     return redirect(index)
+
+def Favorite(request):
+    if request.user.is_authenticated :
+        context = {'fields': ' '}
+        return render(request,'html/favorite.html',context=context)
+    else:
+        return redirect(SignIn)
