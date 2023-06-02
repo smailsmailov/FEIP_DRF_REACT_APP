@@ -15,24 +15,16 @@
                         {% csrf_token %}
                         <span style="align-self: center;font-size: 35px">LOGO</span>
                         <div style="display: flex;justify-content: left;flex-direction: column">
-                            <label for="">Ваше имя: </label>
-                            <input style="height: 40px;background-color: #F7F7FC;padding: 16px"  id="" type="text" name="" maxlength="100" placeholder="Жмышенко А." required>
-                        </div>
-                        <div style="display: flex;justify-content: left;flex-direction: column">
-                            <label for="">Ваш Login: </label>
-                            <input style="height: 40px;background-color: #F7F7FC;padding: 16px"  id="" type="text" name="" maxlength="100" placeholder="Login_Jmishenko" required>
-                        </div>
-                        <div style="display: flex;justify-content: left;flex-direction: column">
-                            <label for="">Ваша почта: </label>
-                            <input style="height: 40px;background-color: #F7F7FC;padding: 16px" id="" type="" name="" maxlength="100" placeholder="JmishenkoAlbert@gmail.ru" required>
+                            <label for="">Ваш Email: </label>
+                            <input style="height: 40px;background-color: #F7F7FC;padding: 16px"  id="" type="text" name="email" maxlength="100" placeholder="Login_Jmishenko" required>
                         </div>
                         <div style="display: flex;justify-content: left;flex-direction: column">
                             <label for="">Пароль: </label>
-                            <input style="height: 40px;background-color: #F7F7FC;padding: 16px" id="" type="password" name="" maxlength="100" placeholder="Пароль" required >
+                            <input style="height: 40px;background-color: #F7F7FC;padding: 16px" id="" type="password" name="password" maxlength="100" placeholder="Пароль" required >
                         </div>
-                        <button style="height: 48px;display: flex;flex-direction: row;justify-content: center;align-items: center;padding: 12px 40px; background-color: #616575;border: 1px solid #616575;color: white;text-decoration: underline;font-size: 14px" type="submit" value="Sign in"></button>
-                        <span style="text-align: center">Нажимая кнопку “Отправить” вы принимаете пользовательское соглашение и политику конфиденциальности</span>
+                        <button style="height: 48px;display: flex;flex-direction: row;justify-content: center;align-items: center;padding: 12px 40px; background-color: #616575;border: 1px solid #616575;color: white;text-decoration: underline;font-size: 14px" type="submit" >Войти</button>
                     </form>
+                    {{ messages.errors }}
                 </div>
             </div>
         </div>

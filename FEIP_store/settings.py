@@ -128,4 +128,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #Custom settings for project _
 
 LOGIN_REDIRECT_URL = "/"
-# AUTH_USER_MODEL = 'main.CustomUser'
+# AUTH_USER_MODEL = 'main.UserD'
+STATICFILES_DIRS = [
+    BASE_DIR / "templates/static",
+]

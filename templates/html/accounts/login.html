@@ -1,6 +1,39 @@
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../static/css/logn.css">
+</head>
+<body style="margin: 0 auto">
+
+    <div style="width: 100vw;height: 100vh;background-color: #616575">
+        <div style="margin: 0 auto;height: 100%;display: flex;justify-content: center;align-items: center">
+            <div style=" width: 500px;height: 700px;background-color: white;color: black;box-shadow: 0px 0px 50px rgba(71, 73, 83, 0.3);">
+                <div style="display: flex;width: 100%;height: 100%;justify-content: space-evenly;flex-direction: column;">
+                    <form action="" method="post" style="margin: 20px;display: flex;justify-content: space-evenly;flex-direction: column;height: 100%;color: #616575">
+                        {% csrf_token %}
+                        <span style="align-self: center;font-size: 35px">LOGO</span>
+                        <div style="display: flex;justify-content: left;flex-direction: column">
+                            <label for="">Ваш Email: </label>
+                            <input style="height: 40px;background-color: #F7F7FC;padding: 16px"  id="" type="text" name="email" maxlength="100" placeholder="Login_Jmishenko" required>
+                        </div>
+                        <div style="display: flex;justify-content: left;flex-direction: column">
+                            <label for="">Пароль: </label>
+                            <input style="height: 40px;background-color: #F7F7FC;padding: 16px" id="" type="password" name="password" maxlength="100" placeholder="Пароль" required >
+                        </div>
+                        <button style="height: 48px;display: flex;flex-direction: row;justify-content: center;align-items: center;padding: 12px 40px; background-color: #616575;border: 1px solid #616575;color: white;text-decoration: underline;font-size: 14px" type="submit" >Войти</button>
+                    </form>
+                    {% if form.errors %}
+                        {% for field in form %}
+                              {% for error in field.errors %}
+                                  <span style="color: red">{{ error|escape }}</span>
+                              {% endfor %}
+                       {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

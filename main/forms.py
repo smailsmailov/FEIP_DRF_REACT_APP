@@ -7,4 +7,9 @@ from django import forms
 class CreateUserForm(UserCreationForm):
     class Meta :
         model = User
-        fields = ['username','password1','password2','email']
+        fields = ['first_name','password1','password2','email']
+
+
+class LoginForm(forms.Form):
+    email = forms.CharField(label=u'Имя пользователя')
+    password = forms.CharField(label=u'Пароль')
