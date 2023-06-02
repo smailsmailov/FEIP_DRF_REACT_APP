@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
 from phone_field import PhoneField
+from colorfield.fields import ColorField
 
 
 class UserD(models.Model):
@@ -11,6 +12,7 @@ class UserD(models.Model):
 
     }
     favorite = []
+
 
 
 class Address(models.Model):
@@ -35,14 +37,6 @@ class Category(models.Model):
         return self.title
 
 
-class Color(models.Model):
-    title = models.CharField(max_length=32)
-    hex = models.CharField(max_length=32)
-
-    def __str__(self):
-        return self.title
-
-
 class Size(models.Model):
     title = models.CharField(max_length=32)
 
@@ -58,7 +52,6 @@ class Product(models.Model):
     price = models.PositiveIntegerField()
     discount_price = models.PositiveIntegerField()
     description = models.TextField()
-    color = models.ForeignKey(Color, on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     show = models.BooleanField(default=True)
 
@@ -66,12 +59,18 @@ class Product(models.Model):
         return self.title
 
 
-class Image(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image = models.ImageField(blank=True, upload_to='images/products')
+class Color(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=32)
+    hex =  ColorField(default='#FF0000')
 
     def __str__(self):
-        return self.product.title
+        return self.title
+
+
+class Image(models.Model):
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
+    image = models.ImageField(blank=True, upload_to='images/products')
 
 
 class Order(models.Model):
