@@ -2,6 +2,9 @@ body{
     margin: 0 auto;
     padding: 0;
 }
+a{
+    text-decoration: none;
+}
 .index_prop_1{
     width: 390px;
     height: 212px;

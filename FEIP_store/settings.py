@@ -131,4 +131,5 @@ LOGIN_REDIRECT_URL = "/"
 # AUTH_USER_MODEL = 'main.UserD'
 STATICFILES_DIRS = [
     BASE_DIR / "templates/static",
+    'css',"templates/static/css"
 ]

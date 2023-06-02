@@ -9,7 +9,7 @@ from .forms import CreateUserForm , LoginForm
 
 
 def index(request):
-    return HttpResponse('all_is_done')
+    return render(request, 'html/index.html')
 
 
 def SignIn(request):
