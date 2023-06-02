@@ -5,6 +5,7 @@ from django.forms.utils import ErrorList
 from django.contrib.auth.forms import UserCreationForm , User
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
+from .models import UserD
 from .forms import CreateUserForm , LoginForm
 
 
@@ -45,6 +46,7 @@ def SignUp(request):
                 name = form.cleaned_data.get('first_name')
                 password = form.cleaned_data.get('password1')
                 new_user = User.objects.create(username=email,first_name=name,email = email , password=password)
+                new_user_d = UserD.objects.create(user=new_user)
                 login(request,new_user)
                 messages.success(request, "Registration successful.")
                 return redirect(index)
