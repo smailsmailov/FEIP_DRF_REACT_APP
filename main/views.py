@@ -45,7 +45,7 @@ def SignUp(request):
                 name = form.cleaned_data.get('first_name')
                 password = form.cleaned_data.get('password1')
                 new_user = User.objects.create(username=email,first_name=name,email = email , password=password)
-                login(request)
+                login(request,new_user)
                 messages.success(request, "Registration successful.")
                 return redirect(index)
             else:
