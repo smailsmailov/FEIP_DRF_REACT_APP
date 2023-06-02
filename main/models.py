@@ -77,3 +77,38 @@ class Order(models.Model):
     is_delivery = models.BooleanField(default=False)
     address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True)
     comment = models.TextField()
+
+
+class Menu(models.Model):
+    HEADER = "HEAD"
+    SIDE = "SIDE"
+    FOOTER = "FOOT"
+    TYPE_CHOICES = [
+        (HEADER, "Header"),
+        (SIDE, "Side"),
+        (FOOTER, "Footer"),
+    ]
+    type = models.CharField(max_length=4, choices=TYPE_CHOICES, default=HEADER)
+    url = models.URLField()
+    title = models.CharField(max_length=32)
+
+    def __str__(self):
+        return self.title
+
+
+class Setting(models.Model):
+    phone = PhoneField(blank=True)
+    wa_phone = PhoneField(blank=True)
+    email = models.EmailField()
+    telegram = models.URLField()
+    youtube = models.URLField()
+    vk = models.URLField()
+    instagram = models.URLField()
+    avito = models.URLField()
+    address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True)
+    #time
+    #longitude
+    #latitude
+
+    def __str__(self):
+        return "Settings"
