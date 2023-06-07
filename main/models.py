@@ -1,3 +1,5 @@
+import random
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser, User
 from phone_field import PhoneField
@@ -7,12 +9,15 @@ from colorfield.fields import ColorField
 class UserD(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_num = PhoneField(blank=True, help_text='Contact phone number')
-
+    phone_code = 0
     stock = {
 
     }
     favorite = []
 
+    def ganerate_sms_code(self):
+        self.phone_code = random.randint(10000,99999)
+        return self.phone_code
 
 
 class Address(models.Model):
@@ -115,3 +120,4 @@ class Setting(models.Model):
 
     def __str__(self):
         return "Settings"
+

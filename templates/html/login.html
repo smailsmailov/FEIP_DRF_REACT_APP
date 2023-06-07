@@ -23,8 +23,10 @@
                             <input style="height: 40px;background-color: #F7F7FC;padding: 16px" id="" type="password" name="password" maxlength="100" placeholder="Пароль" required >
                         </div>
                         <button style="height: 48px;display: flex;flex-direction: row;justify-content: center;align-items: center;padding: 12px 40px; background-color: #616575;border: 1px solid #616575;color: white;text-decoration: underline;font-size: 14px" type="submit" >Войти</button>
+                        {{ form.erros }}
                     </form>
-                    {{ messages.errors }}
+
+{#                    {{ messages.errors }}#}
                 </div>
             </div>
         </div>

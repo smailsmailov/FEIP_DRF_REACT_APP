@@ -1,0 +1,19 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+    <input type="button" value="Click" onmousedown="ViewSmsDiv()">
+    <div style="width: 100vw;height: 100vh;background-color: grey;opacity: 0.5;margin: 0 auto;" id="div1">]
+        <div style="width: 450px;height: 450px;background-color: white;display: flex;justify-content: center;align-self: center;">
+            <span>Подтверждение номера телефона</span>
+            <p>Мы отправим СМС с кодом подтверждения</p>
+            <input style="height: 40px;background-color: #F7F7FC;padding: 16px" id="" type="phone" name="phone" maxlength="100" placeholder="Пароль" required >
+        </div>
+        </div>
+    </div>
+    <script>
+    function ViewSmsDiv(){
+        document.getElementById('div1').style.display = 'block';
+    }
+    </script>
+
+{% endblock %}

@@ -30,7 +30,7 @@
     </div>
     <div class="header_1">
         <div class="header_prop_3">
-            <span style="margin-left: 110px;">LOGO</span>
+            <span style="margin-left: 110px;"><a href="{% url 'index' %}">LOGO</a></span>
             <div class="header_prop_3_1">
                 <div class="header_prop_3_2">
                     <img src="../static/Component 81.svg" alt="">
@@ -44,7 +44,7 @@
         <div class="header_prop_4">
             <img src="../static/Vector.svg" alt=""><span> <a href="{% url 'favorite' %}">Избранное</a>  </span>
             {% if user.is_authenticated %}
-                <img src="../static/user 3.svg" alt=""><span>{{ user.get_full_name }}</span>
+                <img src="../static/user 3.svg" alt=""><span>{{ user.get_full_name }}/ <a href="{% url 'logout' %}">Выйти</a> </span>
             {% else %}
                 <img src="../static/user 3.svg" alt=""><span>  <a href="{% url 'signin' %}">Вход</a>/ <a href="{% url 'signup' %}">Регистрация</a></span>
             {% endif %}

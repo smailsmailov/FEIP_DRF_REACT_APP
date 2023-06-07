@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render,HttpResponse ,redirect
 from django.core.exceptions import ValidationError
 from django import forms
@@ -14,11 +16,11 @@ def index(request):
 
 
 def SignIn(request):
-    form = LoginForm(request.POST)
-    context = {'form' : form}
+    login_form = LoginForm()
+    context = {'form' : login_form}
     if request.user.is_authenticated:
         return redirect(index)
-    if request.method == 'POST' and form.is_valid :
+    if request.method == 'POST' :
         login_form = LoginForm(request.POST)
         email = request.POST['email']
         password = request.POST['password']
@@ -27,7 +29,7 @@ def SignIn(request):
             login(request,user)
             return redirect(index)
         else:
-            login_form.add_error(None, 'Ошибка входа, попробуйте еще раз ! :-( ')
+            login_form.add_error('password','Ошибка входа, попробуйте еще раз ! :-( ')
             context = {'form':login_form}
             return render(request, 'html/accounts/login.html', context)
     else:
@@ -60,7 +62,10 @@ def SignUp(request):
     return render(request, 'html/accounts/registration.html',context)
 
 def LogOut(request):
-    logout(request)
+    if request.user.is_authenticated :
+        logout(request)
+    else:
+        return redirect(index)
     return redirect(index)
 
 def Favorite(request):
@@ -69,3 +74,23 @@ def Favorite(request):
         return render(request,'html/favorite.html',context=context)
     else:
         return redirect(SignIn)
+
+def Buy_list_check(request):
+    return render(request,'html/buy_list.html')
+    # if not request.user.is_authenticated :
+    #     return redirect(index)
+    # else:
+    #     if request.method == 'POST'  :
+    #         sms_code = request.user.userd.ganerate_sms_code()
+    #         if request.POST['code'] == sms_code:
+    #             return HttpResponse('good')
+    #         else:
+    #
+    #             return render(request,'html/end_of_buying.html',)
+
+
+def Handler_404(request):
+    return render(request, 'html/404.html')
+
+def Handler_505(request):
+    return render(request,'html/505.html')
