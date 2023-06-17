@@ -1,0 +1,113 @@
+{% extends 'html/base.html' %}
+{% block content %}
+{% load static %}
+    <form id="1" action="" method="POST">
+    {% csrf_token %}
+    <div style="margin-left: 250px;">
+        <div style="display: flex;margin-bottom: 50px;">
+            <span style="margin-right: 10px;">Главная</span>
+            <span style="margin-right: 10px;">/</span>
+            <span style="margin-right: 10px;">Каталог</span>
+            <span style="margin-right: 10px;">/</span>
+            <span style="margin-right: 10px;">{{ i.category.title_on_site}}</span>
+            <span style="margin-right: 10px;">/</span>
+            <span>{{ i.title_on_site }}</span>
+        </div>
+
+
+        <div style="width: 100%;height: 700px;display: flex;margin-bottom: 50px;">
+            <div style="display: flex;flex-direction: column;height: 100%;justify-content: space-evenly;margin-right: 150px;">
+                <div><img src="../static/arrow_to_item.svg" alt=""></div>
+                <img style="height: 240px;width: 180px;background-color: grey" src="" alt="None">
+                <img style="height: 240px;width: 180px;background-color: grey" src="" alt="None">
+                <div><img src="../static/arrow_to_item.svg" alt=""></div>
+            </div>
+
+            <div style="height: 100%;width: 600px;background-color: grey;margin-right: 50px;">
+                <img src="{{ i.image.url }}" alt="">
+            </div>
+
+            <div style="display: flex;flex-direction: column;justify-content: space-evenly;height: 100%;width: 800px">
+                <p style="font-size: 24px;">{{ i.title_on_site }}</p>
+                <p>Артикль:{{ i.vendor_code }}</p>
+                <div>
+                    <p style="font-size: 24px;">Описание</p>
+                    <p>{{ i.description }}</p>
+                </div>
+                <div>
+                    <p style="font-size: 24px;">Состав</p>
+                    <p>{{ i.compound }}</p>
+                </div>
+                <div>
+                    <p style="font-size: 24px;">Размер</p>
+                    <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;width: 600px">
+                        <select name="select" style="height: 50px;width: 200px;text-align: center;display: flex;justify-content: center;align-items: center;">
+                        {% for foo in i.size_set.all %}
+                            <option required value={{ foo }}>{{ foo }}</option>
+                        {% endfor %}
+
+
+                            <option value=""></option>
+                        </select>
+                        <div>   <p>Не можете подобрать разер?</p><p> Запишитесь на примерку в наш шоурум</p></div>
+                        
+                    </div>
+                </div>
+
+                <div style="display:flex;flex-display:row;">
+                        {% for foo in i.color_set.all %}
+
+                            <label>
+                                <div style="width: 50px;height:50px;border-radius: 50px;border-color: {{ foo.hex }};background-color: {{ foo.hex }};margin-right: 25px; accent-color: {{ foo.hex }};color: {{ foo.hex }};margin-bottom: -50px;"></div>
+                                <input  type="radio" value="{{ foo.hex }}" name="color" required  style="opacity: 0.5;margin: 0 auto;width: 50px;height:50px;border-color: {{ foo.hex }};background-color: {{ foo.hex }};margin-right: 25px; accent-color: {{ foo.hex }};color: {{ foo.hex }};">
+                            </label>
+                        {% endfor %}
+                </div>
+                <div style="display:flex;flex-direction: row;margin-top: 50px;margin-bottom: 50px;align-items: center">
+                    {% if i.discount_price %}
+                        <span style="font-size: 24px;font-weight: 800"> <s>{{ i.price }} ₽</s></span>
+                        {% else %}
+                        <span style="font-size: 24px;font-weight: 800">{{ i.price }} ₽</span>
+                    {% endif %}
+                    <div style="margin-left: 150px;width: auto;height: 50px;border: 1px black solid;display: flex">
+                        <button style="border:none;outline: none;background-color: transparent;cursor: pointer;" id="minus">−</button>
+                        <input form="1" type="number" value="0" name="counter" id="input" required style="text-align: center;background-color: transparent;border:none;outline: none"  />
+                        <button style="border:none;outline: none;background-color: transparent;cursor: pointer;" id="plus">+</button>
+                    </div>
+                    <input style="display:none;" type="text" name="vender_code" value="{{ i.vendor_code }}">
+                    <button type="submit"   style="margin-left: 100px;width: 200px;height: 50px;background-color: #616575;color: white;text-decoration: underline">В Коризну</button>
+
+                    <script>
+                            const minusButton = document.getElementById('minus');
+                            const plusButton = document.getElementById('plus');
+                            const inputField = document.getElementById('input');
+
+                            minusButton.addEventListener('click', event => {
+                              event.preventDefault();
+                              const currentValue = Number(inputField.value) || 0;
+                              if (currentValue==0){
+
+                              }
+                              else{
+                                  inputField.value = currentValue - 1;
+                              }
+                            });
+
+                            plusButton.addEventListener('click', event => {
+                              event.preventDefault();
+                              const currentValue = Number(inputField.value) || 0;
+                              inputField.value = currentValue + 1;
+                            });
+                    </script>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+    </form>
+{% endblock %}

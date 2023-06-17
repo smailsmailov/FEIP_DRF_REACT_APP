@@ -7,7 +7,7 @@ from django.forms.utils import ErrorList
 from django.contrib.auth.forms import UserCreationForm , User
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from .models import UserD
+from .models import UserD , Product
 from .forms import CreateUserForm , LoginForm
 
 
@@ -76,7 +76,19 @@ def Favorite(request):
         return redirect(SignIn)
 
 def Buy_list_check(request):
-    return render(request,'html/buy_list.html')
+
+    if request.user.is_authenticated:
+        data = request.user.userd.stock
+        for i in data :
+            for j in i:
+                print(j)
+        print(data)
+        # for i in request.user.userd.stock:
+        #     print(i.)
+        context = {}
+    else :
+        return redirect('login')
+    return render(request,'html/buy_list.html',context=context)
     # if not request.user.is_authenticated :
     #     return redirect(index)
     # else:
@@ -88,6 +100,44 @@ def Buy_list_check(request):
     #
     #             return render(request,'html/end_of_buying.html',)
 
+
+def Category_serach(request, *args , **kwargs):
+    type_of_category = request.GET.get('type_of_category')
+    type_of_search = request.GET.get('type_of_search')
+    object_to_q =Product.objects.get_queryset()
+
+    print(type_of_category)
+    if(type_of_category!= None):
+        q = object_to_q.filter(category__product__title__contains=type_of_category )
+        q |= object_to_q.filter(category__product__title_on_site__contains=type_of_category)
+    # if(type_of_search != None):
+    #     q = object_to_q.filter(category__product__title__contains=type_of_search )
+    #     q |= object_to_q.filter(category__product__title_on_site__contains=type_of_search)
+
+        print(q)
+        context = {'object_to_q': q,
+                   'Title_of_searching': type_of_category ,
+                   # 'Title_of_category' : type_of_category
+                   }
+        return render(request, 'html/category_serch.html', context=context)
+    else:
+        return render(request,'html/category_serch.html')
+
+
+def Item_to_display(request,id,*args,**kwargs):
+    id_of_item = id
+    if id is None or Product.objects.get(category__product__vendor_code=id_of_item) is None:
+        return render(request,'html/404.html')
+    object_to_q = Product.objects.get(category__product__vendor_code=id_of_item)
+    context = { 'i' : object_to_q }
+    if request.method =="POST":
+        data = request.POST
+        if request.user.is_authenticated:
+            user = User.objects.get(id=request.user.id)
+            user.userd.stock.append(data)
+            user.save()
+            return redirect('buy_list')
+    return render(request, 'html/item_to_display.html',context=context)
 
 def Handler_404(request):
     return render(request, 'html/404.html')

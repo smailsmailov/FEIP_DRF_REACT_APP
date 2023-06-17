@@ -1,0 +1,40 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+
+    <div style="display: flex;margin-bottom: 50px;">
+        <span style="margin-right: 15px;">Главная</span> <span style="margin-right: 15px;">/</span> <span style="margin-right: 15px;">Каталог</span>
+    </div>
+    <div style="display: flex;justify-content: center;align-items: center;justify-content: center;margin-bottom: 50px;">
+         <div style="display: flex;justify-content: space-between;width: 100%;padding-left: 50px;padding-right: 50px;border-bottom: 1px black solid ;">
+        {% if Title_of_searching %}
+            <div style="font-size: 30px">
+                <span >Категория</span> > {{ Title_of_searching }}
+            </div>
+            {% else %}
+                <span>Каталог</span>
+        {% endif %}
+            <div>КАТЕГОРИЯ ПОИСК ЫЫЫЫ</div>
+        </div>
+    </div>
+    {% for i in object_to_q %}
+        <div style="width: 80vh;display: flex;justify-content: center">
+            <div class="index_porop_new_1">
+                    <a href={% url 'item' id=i.vendor_code %}>
+                    <div>
+                        <div style="height:400px;width: 100%;background-color: #F7F7FC;">
+
+                        </div>
+                        <span style="color: #515562;font-size: 16px;text-decoration: underline">{{ i.title_on_site }}</span>
+                        {% if i.price %}
+                            <span style="font-size: 18px;color: black;">{{ i.price }}₽</span>
+                        {% elif i.discount_price %}
+                            <span style="font-size: 18px;color: black;"> <s> {{ i.price }}₽ </s></span>
+                        {% endif %}
+                    </div>
+                    </a>
+            </div>
+            </div>
+    {% endfor %}
+
+{% endblock %}

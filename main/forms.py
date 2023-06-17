@@ -13,3 +13,4 @@ class CreateUserForm(UserCreationForm):
 class LoginForm(forms.Form):
     email = forms.CharField(label=u'Имя пользователя')
     password = forms.CharField(label=u'Пароль')
+

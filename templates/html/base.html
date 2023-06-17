@@ -36,9 +36,11 @@
                     <img src="../static/Component 81.svg" alt="">
                     <span>Каталог</span>
                 </div>
-                <div class="header_prop_3_3">
-                    <img src="../static/Vector (1).svg" alt="">
-                </div>
+                <form action="{% url 'search' %}" method="get">
+                    <input name="type_of_category" type="text" placeholder="Ключевое слово" class="header_prop_3_3">
+                        <img src="../static/Vector (1).svg" alt="">
+                    </input>
+                </form>
             </div>
         </div>
         <div class="header_prop_4">

@@ -10,9 +10,7 @@ class UserD(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_num = PhoneField(blank=True, help_text='Contact phone number')
     phone_code = 0
-    stock = {
-
-    }
+    stock = []
     favorite = []
 
     def ganerate_sms_code(self):
@@ -42,23 +40,34 @@ class Category(models.Model):
         return self.title
 
 
-class Size(models.Model):
-    title = models.CharField(max_length=32)
 
-    def __str__(self):
-        return self.title
 
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    # size = models.ForeignKey(Size,on_delete=models.SET_NULL,null= True)
+    # color  = models.ForeignKey(Color,on_delete=models.SET_NULL,null= True)
+    color = models.ManyToOneRel('main.Color',to='main.Color',field_name='Color is' )
+    size = models.ManyToOneRel('main.Size',to='main.Size',field_name='Size is' )
     title = models.CharField(max_length=64)
     title_on_site = models.CharField(max_length=64)
     vendor_code = models.CharField(max_length=32)
     price = models.PositiveIntegerField()
     discount_price = models.PositiveIntegerField()
     description = models.TextField()
+    compound = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
     show = models.BooleanField(default=True)
+
+
+    def __str__(self):
+        return self.title
+
+
+
+class Size(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    title = models.CharField(max_length=32)
 
     def __str__(self):
         return self.title
@@ -72,10 +81,12 @@ class Color(models.Model):
     def __str__(self):
         return self.title
 
-
 class Image(models.Model):
     color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
     image = models.ImageField(blank=True, upload_to='images/products')
+
+
+
 
 
 class Order(models.Model):
