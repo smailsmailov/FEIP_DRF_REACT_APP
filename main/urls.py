@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import index , SignIn , SignUp , LogOut , Favorite , Buy_list_check , Category_serach , Item_to_display
+from .views import index , SignIn , SignUp , LogOut , Favorite , Buy_list_check , Category_serach , Item_to_display , Buy_check
+
 
 urlpatterns = [
     path('',index,name='index'),
@@ -10,5 +11,6 @@ urlpatterns = [
     path('buy_list',Buy_list_check,name='buy_list'),
     path('search',Category_serach,name='search'),
     path('item/<int:id>/',Item_to_display,name='item'),
+    path('buy_check',Buy_check,name='buy_check'),
+    path('check_sms', Buy_check, name='check_sms')
 ]
-

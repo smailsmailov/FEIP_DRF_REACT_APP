@@ -79,26 +79,100 @@ def Buy_list_check(request):
 
     if request.user.is_authenticated:
         data = request.user.userd.stock
+        data = request.user.userd.stock
+        holder = []
+        holder_for_items = []
+        total_price = 0
+        total_count = 0
         for i in data :
-            for j in i:
-                print(j)
+            print(i['select'])
+            if Product.objects.get(vendor_code= i['vender_code']):
+                item = Product.objects.get(vendor_code= i['vender_code'])
+                price_holder = int(item.price) * int(i['counter'])
+                total_price+= price_holder
+                total_count += int(i['counter'])
+                holder.append({
+                                'item': item ,
+                                'size' : i['select'],
+                                'color' : i['color'],
+                                'couner' : i['counter'],
+                                'vender_code' : i['vender_code'],
+                                'price' : price_holder,
+                               })
         print(data)
-        # for i in request.user.userd.stock:
-        #     print(i.)
-        context = {}
+        # print(holder)
+        context = {
+            'item':holder ,
+            'total_price': total_price ,
+            'total_counter' : total_count,
+                   }
     else :
         return redirect('login')
     return render(request,'html/buy_list.html',context=context)
-    # if not request.user.is_authenticated :
-    #     return redirect(index)
-    # else:
-    #     if request.method == 'POST'  :
-    #         sms_code = request.user.userd.ganerate_sms_code()
-    #         if request.POST['code'] == sms_code:
-    #             return HttpResponse('good')
-    #         else:
-    #
-    #             return render(request,'html/end_of_buying.html',)
+
+
+
+def Buy_check(request):
+    context = {
+
+    }
+    if request.user.is_anonymous:
+        return redirect('index')
+
+    bin = request.user.userd.stock
+    total_price = 0
+    total_count = 0
+    for i in bin :
+        if Product.objects.get(vendor_code=i['vender_code']):
+            item = Product.objects.get(vendor_code=i['vender_code'])
+            price_holder = int(item.price) * int(i['counter'])
+            total_price += price_holder
+            total_count += int(i['counter'])
+
+    if request.method == 'POST':
+        print(request.POST['radio'])
+        if request.POST['radio'] == "2" :
+            name = request.POST['name']
+            Phone = request.POST['phone']
+            email = request.POST['email']
+            postm = request.POST['postm']
+            City = request.POST['City']
+            street = request.POST['street']
+            house = request.POST['house']
+            apartments = request.POST['apartments']
+            comment = request.POST['comment']
+            context = {
+                'name ' : name ,
+                'Phone' : Phone ,
+                'email' : email ,
+                'postm' : postm,
+                'City' : City,
+                'street' : street ,
+                'house' : house ,
+                'apartments' : apartments,
+                'comment' : comment ,
+            }
+            print(context)
+            # return render(request,'',context=context)
+        elif request.POST['radio'] == "1" :
+            name = request.POST['name']
+            Phone = request.POST['phone']
+            email = request.POST['email']
+            context = {
+                'name' : name ,
+                'Phone' : Phone ,
+                'email' : email ,
+            }
+            print(context)
+            # return render(request, '', context=context)
+
+    context = {
+        'total_price': total_price,
+        'total_counter': total_count,
+    }
+    return render(request,'html/delivery_page.html',context=context)
+
+    pass
 
 
 def Category_serach(request, *args , **kwargs):

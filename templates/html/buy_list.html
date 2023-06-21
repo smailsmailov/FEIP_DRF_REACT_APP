@@ -2,12 +2,87 @@
 
 {% block content %}
 
-    {% for foo in all %}
-        {% for i in foo %}
-            {{ i }}
-        {% endfor %}
+{#    {{ object_todispaly.title_on_site }}#}
 
-    {% endfor %}
+    <div style="display: flex;width: 100%;justify-content: center">
+        <div style="width: 800px;height: 900px;display: flex;flex-direction: column;background-color:  #F7F7FC;margin-right: 150px;">
+
+
+            <div style="width: 100%;display: flex;flex-direction: column;justify-content: center;align-items: center">
+                {% for foo in item %}
+                    <div style="width: 550px;border-bottom: 1px black solid;display: flex;padding-bottom: 20px;padding-top: 20px;">
+                        <a style="text-decoration: none" href="{% url 'item' foo.vender_code %}">
+                        <img src="" style="height: 200px;width: 200px;" alt="">
+                        </a>
+                        <div style="margin-left: 50px;">
+                            <p>{{ foo.item.title_on_site }}</p>
+                            <p>Размер :  <span><b>{{ foo.size }}</b></span></p>
+                            <p style="color: {{ foo.color }}">Цвет - {{ foo.color }}</p>
+{#                            <div style="margin-top: 5px;margin-bottom: 5px;width: 20px;height:20px;border-radius: 50px;border-color: {{ foo.color }};background-color: {{ foo.color }};margin-right: 25px; accent-color: {{ foo.color }};color: {{ foo.color }};margin-bottom: -50px;"></div>#}
+
+                            <p>Кол.во : {{ foo.couner }} </p>
+
+{#                            <div style="margin-left: 150px;width: auto;height: 50px;border: 1px black solid;display: flex">#}
+{#                                <button style="border:none;outline: none;background-color: transparent;cursor: pointer;" id="minus">−</button>#}
+{#                                <input form="1" type="number" value="0" name="counter" id="input" required style="text-align: center;background-color: transparent;border:none;outline: none"  />#}
+{#                                <button style="border:none;outline: none;background-color: transparent;cursor: pointer;" id="plus">+</button>#}
+{#                            </div>#}
+{##}
+{#                             <script>#}
+{#                            const minusButton = document.getElementById('minus');#}
+{#                            const plusButton = document.getElementById('plus');#}
+{#                            const inputField = document.getElementById('input');#}
+{##}
+{#                            minusButton.addEventListener('click', event => {#}
+{#                              event.preventDefault();#}
+{##}
+{#                              const currentValue = Number(inputField.value) || 0;#}
+{#                              if (currentValue==0){#}
+{##}
+{#                              }#}
+{#                              else{#}
+{#                                  inputField.value = currentValue - 1;#}
+{#                              }#}
+{#                            });#}
+{##}
+{#                            plusButton.addEventListener('click', event => {#}
+{#                              event.preventDefault();#}
+{#                              const currentValue = Number(inputField.value) || 0;#}
+{#                              inputField.value = currentValue + 1;#}
+{#                            });#}
+{#                            window.addEventListener('load',()=>{#}
+{#                                var input = document.getElementById('input');#}
+{#                                input.value = {{ foo.couner }}#}
+{#                            })#}
+{##}
+{#                    </script>#}
+{##}
+
+                            <p id="price">Общая стоимость товара :  {{ foo.price }}  ₽</p>
+
+
+                        </div>
+                    </div>
+
+                {% endfor %}
+            </div>
+
+        </div>
+        <div style="width: 250px;height: 250px;border: 1px #CDCFD6 solid;text-align: left;">
+            <div style="display: flex;justify-content: space-evenly;flex-direction: column;width: 200px;margin: 0 auto">
+                <p style="font-size: 16px">Ваша корзина</p>
+                <div style="border-bottom: 1px black solid;border-top: 1px black solid;padding-top: 10px;padding-bottom: 10px;">
+                    <div style="display:flex;justify-content: space-between"><span>Кол-во товаров: </span> <span>{{ total_counter }}</span></div>
+                    <p>Сумма: {{ total_price }}</p>
+                </div>
+                <p>Итого {{ total_price }}</p>
+            </div>
+            <a href="{% url 'buy_check' %}"> <button style="width: 100%;height: 50px;background-color: #616575;color: white;display: flex;justify-content: center;text-align: center;text-decoration: underline;align-self: end;align-items: center">ОФОРМИТЬ ЗАКАЗ</button></a>
+        </div>
+    </div>
+
+
+
 
 
 {#    <input type="button" value="Click" onmousedown="ViewSmsDiv()">#}
