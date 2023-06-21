@@ -1,3 +1,4 @@
+import datetime
 import random
 
 from django.db import models
@@ -133,3 +134,44 @@ class Setting(models.Model):
         return "Settings"
 
 
+
+
+
+class Order_list(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+
+    date = models.DateTimeField(auto_now_add=True)
+    id = models.AutoField(primary_key=True)
+    phone = models.CharField(max_length = 100)
+    name = models.CharField(max_length = 100)
+    email = models.EmailField()
+    item_detail = models.TextField(null=True)
+    summ_discount = models.IntegerField(null=True)
+    summ = models.IntegerField(null=True)
+    SELECT = {
+        ('1','Самовывоз'),
+        ('2', 'Доставка'),
+    }
+    type_of_delivery = models.CharField(choices=SELECT, default='1', max_length=2)
+    post_code = models.IntegerField(null=True)
+    City = models.CharField(max_length = 100 , blank=True)
+    stree = models.CharField(max_length = 100,blank=True)
+    house = models.CharField(max_length = 100,blank=True)
+    appartaments = models.CharField(max_length = 100,blank=True)
+
+    comment = models.TextField(blank=True)
+
+class Order_item(models.Model):
+    id_o = models.ForeignKey(Order_list,on_delete=models.CASCADE,null = True)
+    articl = models.CharField(max_length=100)
+    name = models.CharField(max_length=1000)
+    size = models.CharField(max_length=10)
+    color = ColorField(default='#FF0000')
+    count = models.IntegerField()
+    price = models.IntegerField()
+    total_price = models.IntegerField()
+
+    def save(self,*args, **kwargs):
+        # self.total_price = self.count * self.price
+        super().save(*args, **kwargs)

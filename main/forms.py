@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from phone_field import phone_number
 from django import forms
 
+from .models import Order_list
+
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -28,3 +30,6 @@ class DeliveryForm(forms.Form):
     house = forms.CharField(label='Дом')
     apartment = forms.CharField(label='Квартира/строение')
     comment = forms.Textarea()
+
+
+

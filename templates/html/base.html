@@ -57,7 +57,7 @@
             {% else %}
                 <img src="../static/user 3.svg" alt=""><span>  <a href="{% url 'signin' %}">Вход</a>/ <a href="{% url 'signup' %}">Регистрация</a></span>
             {% endif %}
-            <img src="../static/basket 3.svg" alt=""><span>  Корзина 5000/ 5 шт</span>
+            <img src="../static/basket 3.svg" alt=""> <a href="{% url 'buy_check' %}"><span>  Корзина {{ total_price }}/ {{ total_counter }} шт</span></a>
         </div>
     </div>
     {% load static %}

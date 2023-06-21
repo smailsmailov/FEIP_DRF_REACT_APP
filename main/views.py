@@ -1,3 +1,4 @@
+import datetime
 import random
 
 from django.shortcuts import render,HttpResponse ,redirect
@@ -7,13 +8,18 @@ from django.forms.utils import ErrorList
 from django.contrib.auth.forms import UserCreationForm , User
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from .models import UserD , Product
+from .models import UserD , Product , Order_list , Order_item
 from .forms import CreateUserForm , LoginForm
 
 
-def index(request):
-    return render(request, 'html/index.html')
 
+def index(request):
+    context = { }
+    if request.user.is_authenticated:
+        holder = check_bin(request.user.userd.stock)
+        return render(request, 'html/index.html',context = context)
+    else:
+        return render(request, 'html/index.html')
 
 def SignIn(request):
     login_form = LoginForm()
@@ -129,6 +135,29 @@ def Buy_check(request):
             total_price += price_holder
             total_count += int(i['counter'])
 
+    data = request.user.userd.stock
+    holder = []
+    for i in data:
+        print(i['select'])
+        if Product.objects.get(vendor_code=i['vender_code']):
+            item = Product.objects.get(vendor_code=i['vender_code'])
+            price_holder = int(item.price) * int(i['counter'])
+            total_price += price_holder
+            total_count += int(i['counter'])
+            holder.append({
+                'item': item,
+                'size': i['select'],
+                'color': i['color'],
+                'couner': i['counter'],
+                'vender_code': i['vender_code'],
+                'price': int(item.price),
+
+            })
+
+    order_list = Order_list()
+
+
+
     if request.method == 'POST':
         print(request.POST['radio'])
         if request.POST['radio'] == "2" :
@@ -141,6 +170,24 @@ def Buy_check(request):
             house = request.POST['house']
             apartments = request.POST['apartments']
             comment = request.POST['comment']
+
+            order_list.name = name
+            order_list.phone = Phone
+            order_list.email = email
+            order_list.post_code = postm
+            order_list.City = City
+            order_list.stree = street
+            order_list.house = house
+            order_list.appartaments = apartments
+            order_list.comment = comment
+            order_list.user = request.user
+            order_list.type_of_delivery = '2'
+
+            order_list.summ = total_price
+
+            order_list.save()
+
+
             context = {
                 'name ' : name ,
                 'Phone' : Phone ,
@@ -152,9 +199,16 @@ def Buy_check(request):
                 'apartments' : apartments,
                 'comment' : comment ,
             }
-            print(context)
+            for i in holder:
+                order_item = Order_item(size=i['size'], price=i['price'], name=i['item'], articl=i['vender_code'],
+                                        count=i['couner'], id_o=order_list, total_price = int(i['couner']) *int(i['price']),color=i['color'] )
+                order_item.save()
+            request.user.userd.stock = {}
+            request.user.userd.save()
+
             # return render(request,'',context=context)
         elif request.POST['radio'] == "1" :
+
             name = request.POST['name']
             Phone = request.POST['phone']
             email = request.POST['email']
@@ -163,8 +217,22 @@ def Buy_check(request):
                 'Phone' : Phone ,
                 'email' : email ,
             }
-            print(context)
+            order_list.name = name
+            order_list.email = email
+            order_list.phone = Phone
+
+            order_list.user = request.user
+
+
+            order_list.save()
             # return render(request, '', context=context)
+            for i in holder:
+                order_item = Order_item(size=i['size'], price=i['price'], name=i['item'], articl=i['vender_code'],
+                                        count=i['couner'], id_o=order_list,
+                                        total_price=int(i['couner']) * int(i['price']) , color=i['color'])
+                order_item.save()
+            request.user.userd.stock = {}
+            request.user.userd.save()
 
     context = {
         'total_price': total_price,
@@ -218,3 +286,17 @@ def Handler_404(request):
 
 def Handler_505(request):
     return render(request,'html/505.html')
+
+
+def check_bin(data):
+    total_price = 0
+    total_count = 0
+    for i in data:
+        print(i['select'])
+        if Product.objects.get(vendor_code=i['vender_code']):
+            item = Product.objects.get(vendor_code=i['vender_code'])
+            price_holder = int(item.price) * int(i['counter'])
+            total_price += price_holder
+            total_count += int(i['counter'])
+
+    return [total_count,total_price]

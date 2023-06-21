@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from super_inlines.admin import SuperInlineModelAdmin, SuperModelAdmin
 
-from main.models import UserD, Address, Category, Color, Size, Product, Image, Order, Menu, Setting
+from main.models import UserD, Address, Category, Color, Size, Product, Image, Order, Menu, Setting , Order_list , Order_item
 
 
 class UserDInline(admin.StackedInline):
@@ -36,6 +36,16 @@ class ColorInline(SuperInlineModelAdmin, admin.StackedInline):
 class ProductAdmin(SuperModelAdmin):
     inlines = [SizeInline, ColorInline]
 
+
+class Order_item(admin.TabularInline):
+    model = Order_item
+    extra = 0
+
+@admin.register(Order_list)
+class OrederListAdmin(admin.ModelAdmin):
+    inlines = (Order_item,)
+    # exclude = ['post_code','City','stree','house','appartaments','comment']
+    pass
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
