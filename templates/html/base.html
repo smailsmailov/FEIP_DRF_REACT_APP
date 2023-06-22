@@ -31,7 +31,7 @@
         <div class="header_prop_2">
             <div style="display:flex;justify-content: space-between;text-decoration: underline;width: 150px;align-items: center;">
                 <span>Logo</span>
-                <span>Написать нам</span>
+                <span onclick="display_d()">Написать нам</span>
             </div>
         </div>
     </div>
@@ -43,9 +43,6 @@
                     <img src="../static/Component 81.svg" alt="">
                     <span>Каталог</span>
                 </button   >
-
-
-
 
                 <script>
                     function display_bar() {
@@ -78,7 +75,11 @@
             {% else %}
                 <img src="../static/user 3.svg" alt=""><span>  <a href="{% url 'signin' %}">Вход</a>/ <a href="{% url 'signup' %}">Регистрация</a></span>
             {% endif %}
+            {% if user.is_authenticated %}
             <img src="../static/basket 3.svg" alt=""> <a href="{% url 'buy_list' %}"><span>  Корзина {{ total_price }} ₽/ {{ total_counter }} шт</span></a>
+            {% else %}
+
+            {% endif %}
         </div>
     </div>
 
@@ -129,6 +130,91 @@
         <div style="width: 100%;height: 200px;opacity: 0.5;background-color: grey"></div>
     </div>
 
+    <div id="show_dialog_p" >
+        <form method="post" action="{% url 'test' %}">
+        <div  style="width: 100vw;height: 100vh;position: fixed;margin: 0 auto;top: 0;left: 0;display: flex;justify-content: center;align-items: center">
+            <div style="width: 100%;height: 100%;position:absolute;;background-color: rgba(161, 161, 161,0.5);z-index:1 "></div>
+            <div style="width: 600px;height: 600px;background-color: white;position:absolute;margin: 0 auto;z-index: 2;display: flex">
+                <div style="width: 100%;height: 100%">
+                    <button onclick="test()" style="float: right;margin: 20px;border: 0px;background-color: white"><img id="click"  width="20px" height="20px" style="" src="../static/cross_close.svg" alt=""></button>
+                    <div style="width: 400px;height: 100%;display: flex;justify-content: center;flex-direction: column;text-align: left;position:absolute;margin-left: 100px;">
+
+                            {% csrf_token %}
+                            <p><b>Обратная связь</b></p>
+                            <label for="">Имя</label>
+                            <input name="name" style="background-color: #ADB1BB;height: 50px;margin-bottom: 10px;color: white;border: 0px;border-radius: 5px;padding: 5px" required placeholder="Jmishenko.Albert" type="text">
+                            <label for="">Телефон</label>
+                            <input name="phone" style="background-color: #ADB1BB;height: 50px;margin-bottom: 10px;color: white;border: 0px;border-radius: 5px;padding: 5px" required placeholder="+7 228 1337 69" name="phone" id="base" id="phone" type="text" class="tel">
+                            <label for="">Комментарий</label>
+                            <textarea name="textarea" id="" cols="30" rows="5"></textarea>
+                            <button  type="submit" style="display: flex;justify-content: center;align-items: center;background-color: #616575;border: 0px;color: white;text-decoration: underline;height: 48px"><span>Отправить</span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    window.addEventListener("DOMContentLoaded", function() {
+    [].forEach.call( document.querySelectorAll('.tel'), function(input) {
+    var keyCode;
+    function mask(event) {
+        event.keyCode && (keyCode = event.keyCode);
+        var pos = this.selectionStart;
+        if (pos < 3) event.preventDefault();
+        var matrix = "+7 (___) ___ ____",
+            i = 0,
+            def = matrix.replace(/\D/g, ""),
+            val = this.value.replace(/\D/g, ""),
+            new_value = matrix.replace(/[_\d]/g, function(a) {
+                return i < val.length ? val.charAt(i++) || def.charAt(i) : a
+            });
+        i = new_value.indexOf("_");
+        if (i != -1) {
+            i < 5 && (i = 3);
+            new_value = new_value.slice(0, i)
+        }
+        var reg = matrix.substr(0, this.value.length).replace(/_+/g,
+            function(a) {
+                return "\\d{1," + a.length + "}"
+            }).replace(/[+()]/g, "\\$&");
+        reg = new RegExp("^" + reg + "$");
+        if (!reg.test(this.value) || this.value.length < 5 || keyCode > 47 && keyCode < 58) this.value = new_value;
+        if (event.type == "blur" && this.value.length < 5)  this.value = ""
+    }
+
+    input.addEventListener("input", mask, false);
+    input.addEventListener("focus", mask, false);
+    input.addEventListener("blur", mask, false);
+    input.addEventListener("keydown", mask, false)
+
+  });
+});
+
+
+
+    </script>
+
+    <script>
+        var cross = document.getElementById('click');
+        var elem = document.getElementById('show_dialog_p');
+        function test () {
+            console.log('yea')
+            document.getElementById("show_dialog_p").hidden = true;
+        }
+
+        cross.onclick = function test_1 (){
+            document.getElementById('show_dialog_p').hidden = true;
+        }
+        function display_d() {
+            document.getElementById('show_dialog_p').hidden = false;
+        }
+        document.addEventListener("DOMContentLoaded", function (){
+            document.getElementById('show_dialog_p').hidden = true;
+        })
+    </script>
+
 
     {% load static %}
     {% block content %}
@@ -148,7 +234,7 @@
         <div class="footer_prop_n">
             <span style="color: white;">О компании</span>
             <span>О нас </span><span>Контакты</span><span>Доставка</span><span>Оплата</span>
-            <div><img src="../static/Frame 588.svg" alt=""></div>
+            <div><a href=""><img src="../static/Frame 588.svg" alt=""></a></div>
         </div>
         <div class="footer_prop_n"style="height: 200px;">
             <div style="display: flex;flex-direction: column;justify-content: space-evenly;height: 50% ;"><span>Контакты</span><span>+79123456789</span><span>mail.mail@ru</span></div>

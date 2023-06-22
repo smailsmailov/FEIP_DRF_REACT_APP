@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from super_inlines.admin import SuperInlineModelAdmin, SuperModelAdmin
 
-from main.models import UserD, Address, Category, Color, Size, Product, Image, Order, Menu, Setting , Order_list , Order_item
+from main.models import UserD, Address, Category, Color, Size, Product, Image, Order, Menu, Setting , Order_list , Order_item , modal_connect
 
 
 class UserDInline(admin.StackedInline):
@@ -58,3 +58,4 @@ admin.site.register(Category)
 admin.site.register(Order)
 admin.site.register(Menu)
 admin.site.register(Setting)
+admin.site.register(modal_connect)

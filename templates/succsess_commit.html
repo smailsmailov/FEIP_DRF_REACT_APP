@@ -1,0 +1,10 @@
+{% extends 'html/base.html' %}
+
+{% block content %}
+    <div style="width: 100%;height: 100%;display: flex;padding: 50px;display: flex;flex-direction: column;align-items: center;justify-content: center">
+        <img src="./static/icons8-галочка-150.svg" alt="">
+        <p><b>Заявка отправлена</b></p>
+        <p>Спасибо за заявку, скоро с вами свяжется наш менеджер</p>
+        <a href="{% url 'index' %}"><button style=" width: 150px;height: 50px;border: 0px;background-color: #616575;color: white;display: flex;justify-content: center;text-align: center;text-decoration: underline;align-items: center">На главную</button></a>
+    </div>
+{% endblock %}

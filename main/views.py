@@ -8,19 +8,19 @@ from django.forms.utils import ErrorList
 from django.contrib.auth.forms import UserCreationForm , User
 from django.contrib.auth import authenticate , login , logout
 from django.contrib import messages
-from .models import UserD , Product , Order_list , Order_item
+from .models import UserD , Product , Order_list , Order_item , modal_connect, Setting
 from .forms import CreateUserForm , LoginForm
 
 
 
 def index(request):
     context = {
-
-
+        'settings': Setting.objects.first(),
     }
     if request.user.is_authenticated:
         holder = check_bin(request.user.userd.stock)
         context = {
+            'settings': Setting.objects.first(),
             'total_price':holder[1],
             'total_counter': holder[0],
         }
@@ -212,6 +212,7 @@ def Buy_check(request):
                 order_item.save()
             request.user.userd.stock = {}
             request.user.userd.save()
+            return redirect('succses_d')
 
             # return render(request,'',context=context)
         elif request.POST['radio'] == "1" :
@@ -240,7 +241,7 @@ def Buy_check(request):
                 order_item.save()
             request.user.userd.stock = {}
             request.user.userd.save()
-
+            return redirect('succses_d')
     context = {
         'total_price': total_price,
         'total_counter': total_count,
@@ -256,6 +257,10 @@ def Category_serach(request, *args , **kwargs):
     object_to_q =Product.objects.get_queryset()
 
     print(type_of_category)
+
+    if request.user.is_anonymous:
+        return redirect('signin')
+
     if type_of_category!= None and(object_to_q.filter(category__product__title__contains=type_of_category) or object_to_q.filter(category__product__title_on_site__contains=type_of_category)):
         holder = check_bin(request.user.userd.stock)
         q = object_to_q.filter(category__product__title__contains=type_of_category )
@@ -337,3 +342,12 @@ def check_bin(data):
     return [total_count,total_price]
 
 
+def create_conn_p(request):
+    if request.method == 'POST' :
+        new_item = modal_connect(name=request.POST['name'],phone=request.POST['phone'],text_area=request.POST['textarea'])
+        new_item.save()
+
+    return render(request,'succsess_commit.html')
+def create_conn_d(request):
+
+    return render(request,'succsess_delivery.html')

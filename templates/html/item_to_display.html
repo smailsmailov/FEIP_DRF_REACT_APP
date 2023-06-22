@@ -1,6 +1,7 @@
 {% extends 'html/base.html' %}
-{% block content %}
 {% load static %}
+{% block content %}
+    {% load static %}
     <form id="1" action="" method="POST">
     {% csrf_token %}
     <div style="margin-left: 250px;">
@@ -18,7 +19,7 @@
         <div style="width: 100%;height: 700px;display: flex;margin-bottom: 50px;">
             <div style="display: flex;flex-direction: column;height: 100%;justify-content: space-evenly;margin-right: 150px;">
                 <div><img src="../static/arrow_to_item.svg" alt=""></div>
-                <img style="height: 240px;width: 180px;background-color: grey" src="" alt="None">
+                <img style="height: 240px;width: 180px;background-color: grey" src="../static/product_img.svg" alt="None">
                 <img style="height: 240px;width: 180px;background-color: grey" src="" alt="None">
                 <div><img src="../static/arrow_to_item.svg" alt=""></div>
             </div>

@@ -175,3 +175,13 @@ class Order_item(models.Model):
     def save(self,*args, **kwargs):
         # self.total_price = self.count * self.price
         super().save(*args, **kwargs)
+
+class modal_connect(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20)
+    text_area = models.TextField()
+
+    def __str__(self):
+        return "Обращения от          -       " + str(self.date) + self.phone
+
