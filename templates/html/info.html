@@ -1,0 +1,141 @@
+{% extends 'html/base.html' %}
+{% block content %}
+
+    <head>
+    <link href="https://itchief.ru/examples/libs/ui-components/itc-slider/itc-slider.css" rel="stylesheet">
+  <script src="https://itchief.ru/examples/libs/ui-components/itc-slider/itc-slider.js" defer></script>
+    </head>
+
+    <style>
+    *,
+    *::before,
+    *::after {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+      'Segoe UI Symbol';
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .itc-slider__item {
+      flex: 0 0 50%;
+      max-width: 50%;
+      height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 7rem;
+        margin-left: 20px;
+        margin-right: 20px;
+        background-color: #F7F7FC;
+    }
+
+    {#.itc-slider__item:nth-child(1) {#}
+    {#  background-color: #f44336;#}
+    {#}#}
+    {##}
+    {#.itc-slider__item:nth-child(2) {#}
+    {#  background-color: #9c27b0;#}
+    {#}#}
+    {##}
+    {#.itc-slider__item:nth-child(3) {#}
+    {#  background-color: #3f51b5;#}
+    {#}#}
+    {##}
+    {#.itc-slider__item:nth-child(4) {#}
+    {#  background-color: #03a9f4;#}
+    {#}#}
+    {##}
+    {#.itc-slider__item:nth-child(5) {#}
+    {#  background-color: #4caf50;#}
+    {#}#}
+  </style>
+
+    <div style="width: 900px;height: 100%;margin: 0 auto">
+        <div style="background-color: #F7F7FC ;display: flex;height: 300px;align-items: center;justify-content: center">
+            <div style="display: flex;justify-content: center;align-items: center;flex-direction: column">
+                <p>Информационная панель</p>
+                <img src="../static/None_img.svg" alt=""></div>
+
+        </div>
+        <p><b>Условия возврата</b></p>
+        <p style="color: #515562">Воспользоваться этими правами потребитель может только в случае, если ненадлежащее качество не было оговорено продавцов при покупке. Если при покупке товара отдельные недостатки были оговорены, это не лишает потребителя права предъявить претензии по поводу других обнаруженных недостатков.
+Если для установки выхода товара из строя требуется дополнительная проверка/экспертиза, она должна быть произведена в течение 20 дней с момента предъявления требований.</p>
+        <p style="color: #515562">Если у продавца отсутствует необходимый товар, замена товара ненадлежащего качества должна быть произведена в течение месяца со дня предъявления требований.
+На время ремонта потребитель может потребовать безвозмездно предоставить ему аналогичный товар во временное пользование, если ремонт производится более 3 дней с момента подачи претензии.</p>
+        <div class="container">
+  <div class="itc-slider" data-slider="itc-slider" data-loop="true" data-autoplay="false">
+    <div class="itc-slider__wrapper">
+      <div class="itc-slider__items">
+        <div class="itc-slider__item">
+          <!-- Контент 1 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+        <div class="itc-slider__item">
+          <!-- Контент 2 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+        <div class="itc-slider__item">
+          <!-- Контент 3 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+        <div class="itc-slider__item">
+          <!-- Контент 4 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+        <div class="itc-slider__item">
+          <!-- Контент 5 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+          <div class="itc-slider__item">
+          <!-- Контент 5 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+          <div class="itc-slider__item">
+          <!-- Контент 5 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+          <div class="itc-slider__item">
+          <!-- Контент 5 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+          <div class="itc-slider__item">
+          <!-- Контент 5 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+          <div class="itc-slider__item">
+          <!-- Контент 5 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+          <div class="itc-slider__item">
+          <!-- Контент 5 слайда -->
+            <img src="../static/None_img.svg" alt="">
+        </div>
+      </div>
+    </div>
+    <button class="itc-slider__btn itc-slider__btn_prev"></button>
+    <button class="itc-slider__btn itc-slider__btn_next"></button>
+  </div>
+</div>
+        <p><b>Как Вы можете вернуть товар?</b></p>
+        <p style="color: #515562">Если товар был оплачен банковской картой или через платежную систему WebMoney, Яндекс.Деньги и QIWI Кошелек, отмена операции по оплате товаров происходит в течение пяти рабочих дней с момента поступления заявления о возврате товара в письменном или электронном виде. Обратите внимание, что, в зависимости от вида платежной системы, возврат денежных средств на счет плательщика может занять до 30 дней. </p>
+        <ul>
+            <li>консультирование покупателей, помощь в выборе товаров;</li>
+            <li>работа на кассе;</li>
+            <li>участие в выкладке товаров в торговом зале.</li>
+        </ul>
+
+
+
+    </div>
+{% endblock %}

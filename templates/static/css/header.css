@@ -55,14 +55,14 @@ body{
     flex-direction: row;
     align-items: center;
     background-color: #F7F7FC;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     margin-left: 80px;
 }
 .header_prop_3_2{
     background-color: #616575;
     overflow: hidden;
     height: 100%;
-    width: 70px;
+    width: 140px;
     display: flex;
     color: white;
     align-items: center;
@@ -82,3 +82,9 @@ body{
     justify-content: space-around;
     align-items: center;
 }
+
+.a_not_decor a, a:active, a:hover {
+    color: #616575;
+    text-decoration: none;
+}
+

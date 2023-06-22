@@ -39,15 +39,36 @@
         <div class="header_prop_3">
             <span style="margin-left: 110px;"><a href="{% url 'index' %}">LOGO</a></span>
             <div class="header_prop_3_1">
-                <div class="header_prop_3_2">
+                <button class="header_prop_3_2" style="border: 0px" onclick="display_bar()"  >
                     <img src="../static/Component 81.svg" alt="">
                     <span>Каталог</span>
+                </button   >
+
+
+
+
+                <script>
+                    function display_bar() {
+                        if (document.getElementById("display_content_dropdown").style.display == 'block') {
+                          document.getElementById("display_content_dropdown").style.display = "none";
+                        }
+                        else {
+                         document.getElementById("display_content_dropdown").style.display = "block";
+                        }
+                    }
+                </script>
+
+
+
+
+                <div style="display: flex;justify-content: space-between;width: 100%">
+                    <form action="{% url 'search' %}" method="get">
+                        <input style="border: 0px;background-color: #F7F7FC;height: 48px;width: 200px" name="type_of_category" type="text" placeholder="Ключевое слово" class="header_prop_3_3">
+
+                        </input>
+                    </form>
+                    <img src="../static/Vector (1).svg" alt="">
                 </div>
-                <form action="{% url 'search' %}" method="get">
-                    <input name="type_of_category" type="text" placeholder="Ключевое слово" class="header_prop_3_3">
-                        <img src="../static/Vector (1).svg" alt="">
-                    </input>
-                </form>
             </div>
         </div>
         <div class="header_prop_4">
@@ -57,9 +78,58 @@
             {% else %}
                 <img src="../static/user 3.svg" alt=""><span>  <a href="{% url 'signin' %}">Вход</a>/ <a href="{% url 'signup' %}">Регистрация</a></span>
             {% endif %}
-            <img src="../static/basket 3.svg" alt=""> <a href="{% url 'buy_check' %}"><span>  Корзина {{ total_price }}/ {{ total_counter }} шт</span></a>
+            <img src="../static/basket 3.svg" alt=""> <a href="{% url 'buy_list' %}"><span>  Корзина {{ total_price }} ₽/ {{ total_counter }} шт</span></a>
         </div>
     </div>
+
+    <div id="display_content_dropdown" style="position: absolute;width: 100%;height: 800px;display: none;">
+        <div style="width: 100%;height: 600px;background-color: white">
+            <div class="a_not_decor" style="width: 80vw;height:100%;margin: 0 auto;display: flex;justify-content: space-evenly">
+                <div >
+                    <a href="{% url 'search' %}?type_of_category=Одежда">  <p style="font-size: 16px"><b>Одежда</b></p></a>
+                  <a href="{% url 'search' %}?type_of_category=юбки">  <p>юбки</p></a>
+                  <a href="{% url 'search' %}?type_of_category=Джемперы">  <p>Джемперы</p></a>
+                   <a href="{% url 'search' %}?type_of_category=Джинсы"> <p>Джинсы</p></a>
+                  <a href="{% url 'search' %}?type_of_category=Брюки, шорты">  <p>Брюки, шорты</p></a>
+                  <a href="{% url 'search' %}?type_of_category=Футболки, топы, лонгсливы">  <p>Футболки, топы, лонгсливы</p></a>
+                   <a href="{% url 'search' %}?type_of_category=Блузки, рубашки, туники"> <p>Блузки, рубашки, туники</p></a>
+                   <a href="{% url 'search' %}?type_of_category=платья"> <p>платья</p></a>
+                   <a href="{% url 'search' %}?type_of_category=толстовки"> <p>толстовки</p></a>
+                  <a href="{% url 'search' %}?type_of_category=Костюмы">  <p>Костюмы</p></a>
+                   <a href="{% url 'search' %}?type_of_category=Оверол"> <p>Оверол</p></a>
+                </div>
+                <div>
+                  <a href="{% url 'search' %}?type_of_category=Верхняя одежда">  <p style="font-size: 16px"><b>Верхняя одежда</b></p></a>
+                  <a href="{% url 'search' %}?type_of_category= куртки">  <p> куртки</p></a>
+                  <a href="{% url 'search' %}?type_of_category=Джинсовые куртки"> <p>  Джинсовые куртки</p></a>
+                 <a href="{% url 'search' %}?type_of_category=пальто"> <p>   пальто</p></a>
+                  <a href="{% url 'search' %}?type_of_category=пуховики"><p>   пуховики</p></a>
+                 <a href="{% url 'search' %}?type_of_category=Плащи"><p>    Плащи</p></a>
+                  <a href="{% url 'search' %}?type_of_category=ветровки"><p>   ветровки</p></a>
+                   <a href="{% url 'search' %}?type_of_category=Кэмэлюкс"><p>  Кэмэлюкс</p></a>
+                </div>
+                <div>
+                   <a href="{% url 'search' %}?type_of_category=Aксессуары"> <p style="font-size: 16px"><b>Aксессуары</b></p></a>
+                    <a href="{% url 'search' %}?type_of_category=солнечные очки"><p>солнечные очки</p></a>
+                    <a href="{% url 'search' %}?type_of_category=Ремни"><p>Ремни</p></a>
+                    <a href="{% url 'search' %}?type_of_category=Перчатки"><p>Перчатки</p></a>
+                    <a href="{% url 'search' %}?type_of_category=Бижутерия"><p>Бижутерия</p></a>
+                    <a href="{% url 'search' %}?type_of_category=аксессуары дял кубов"><p>аксессуары дял кубов</p></a>
+                </div>
+                <div>
+                    <a href="{% url 'search' %}?type_of_category=Жакеты и пиджак"><p style="font-size: 16px"> <b>Жакеты и пиджаки</b></p></a>
+                    <a href="{% url 'search' %}?type_of_category=Обувь"><p style="font-size: 16px"> <b>обувь</b></p></a>
+                    <a href="{% url 'search' %}?type_of_category=сумки и кошельки"><p style="font-size: 16px"><b>сумки и кошельки</b></p></a>
+                   <a href="{% url 'search' %}?type_of_category=шапки, шляпы, шарфы"><p style="font-size: 16px"> <b>шапки, шляпы, шарфы</b></p></a>
+                </div>
+
+            </div>
+
+        </div>
+        <div style="width: 100%;height: 200px;opacity: 0.5;background-color: grey"></div>
+    </div>
+
+
     {% load static %}
     {% block content %}
     {% endblock %}

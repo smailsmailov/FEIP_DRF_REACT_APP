@@ -14,9 +14,16 @@ from .forms import CreateUserForm , LoginForm
 
 
 def index(request):
-    context = { }
+    context = {
+
+
+    }
     if request.user.is_authenticated:
         holder = check_bin(request.user.userd.stock)
+        context = {
+            'total_price':holder[1],
+            'total_counter': holder[0],
+        }
         return render(request, 'html/index.html',context = context)
     else:
         return render(request, 'html/index.html')
@@ -249,21 +256,45 @@ def Category_serach(request, *args , **kwargs):
     object_to_q =Product.objects.get_queryset()
 
     print(type_of_category)
-    if(type_of_category!= None):
+    if type_of_category!= None and(object_to_q.filter(category__product__title__contains=type_of_category) or object_to_q.filter(category__product__title_on_site__contains=type_of_category)):
+        holder = check_bin(request.user.userd.stock)
         q = object_to_q.filter(category__product__title__contains=type_of_category )
         q |= object_to_q.filter(category__product__title_on_site__contains=type_of_category)
     # if(type_of_search != None):
     #     q = object_to_q.filter(category__product__title__contains=type_of_search )
     #     q |= object_to_q.filter(category__product__title_on_site__contains=type_of_search)
-
         print(q)
         context = {'object_to_q': q,
                    'Title_of_searching': type_of_category ,
                    # 'Title_of_category' : type_of_category
+                   'total_price': holder[1],
+                   'total_counter': holder[0],
                    }
         return render(request, 'html/category_serch.html', context=context)
+    elif(type_of_search!=None and(object_to_q.filter(category__product__title__contains=type_of_category) or object_to_q.filter(category__product__title_on_site__contains=type_of_category))):
+        holder = check_bin(request.user.userd.stock)
+        q = object_to_q.filter(category__product__title__contains=type_of_search)
+        q |= object_to_q.filter(category__product__title_on_site__contains=type_of_search)
+        # if(type_of_search != None):
+        #     q = object_to_q.filter(category__product__title__contains=type_of_search )
+        #     q |= object_to_q.filter(category__product__title_on_site__contains=type_of_search)
+        print(q)
+        context = {'object_to_q': q,
+                   'Title_of_searching': type_of_category,
+                   # 'Title_of_category' : type_of_category
+                   'total_price': holder[1],
+                   'total_counter': holder[0],
+                   }
+        return render(request, 'html/category_serch.html', context=context)
+    elif(type_of_search==None or type_of_category==None):
+        holder = check_bin(request.user.userd.stock)
+        nothing = True
+        return render(request,'html/category_serch.html',context={'nothin':nothing,
+                                                                  'total_price': holder[1],
+                                                                  'total_counter': holder[0],
+                                                                  })
     else:
-        return render(request,'html/category_serch.html')
+        return render(request, 'html/category_serch.html', context={'nothin': True})
 
 
 def Item_to_display(request,id,*args,**kwargs):
@@ -287,6 +318,10 @@ def Handler_404(request):
 def Handler_505(request):
     return render(request,'html/505.html')
 
+def Info(request):
+    return render(request,'html/info.html')
+
+
 
 def check_bin(data):
     total_price = 0
@@ -300,3 +335,5 @@ def check_bin(data):
             total_count += int(i['counter'])
 
     return [total_count,total_price]
+
+

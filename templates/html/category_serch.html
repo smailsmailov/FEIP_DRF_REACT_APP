@@ -2,9 +2,9 @@
 
 {% block content %}
 
-    <div style="display: flex;margin-bottom: 50px;">
-        <span style="margin-right: 15px;">Главная</span> <span style="margin-right: 15px;">/</span> <span style="margin-right: 15px;">Каталог</span>
-    </div>
+{#    <div style="display: flex;margin-bottom: 50px;">#}
+{#        <span style="margin-right: 15px;">Главная</span> <span style="margin-right: 15px;">/</span> <span style="margin-right: 15px;">Каталог</span>#}
+{#    </div>#}
     <div style="display: flex;justify-content: center;align-items: center;justify-content: center;margin-bottom: 50px;">
          <div style="display: flex;justify-content: space-between;width: 100%;padding-left: 50px;padding-right: 50px;border-bottom: 1px black solid ;">
         {% if Title_of_searching %}
@@ -14,9 +14,15 @@
             {% else %}
                 <span>Каталог</span>
         {% endif %}
-            <div>КАТЕГОРИЯ ПОИСК ЫЫЫЫ</div>
         </div>
     </div>
+    {% if nothin %}
+        <div style="width: 100%;padding-left: 50px;padding-right: 50px;height: 50vh">
+            <div style="border: 1px black solid">
+                <p>Пока в данной категории товары отсутствуют ☹</p>
+            </div>
+        </div>
+    {% endif %}
     {% for i in object_to_q %}
         <div style="width: 80vh;display: flex;justify-content: center">
             <div class="index_porop_new_1">
